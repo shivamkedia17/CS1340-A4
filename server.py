@@ -8,7 +8,7 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         self.request.sendall(data)
 
 if __name__ == "__main__":
-    server_ip   = "10.2.94.209"
+    server_ip   = '127.0.0.1'
     server_port = 1100
     server_address = (server_ip, server_port)  # Listen on all available network interfaces
     server = socketserver.TCPServer(server_address, MyTCPHandler)

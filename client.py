@@ -1,7 +1,8 @@
 import socket
+import sys
 
 def main():
-    server_ip = "10.2.94.209"  # Replace with the server's IP address
+    server_ip = '127.0.0.1'  # Replace with the server's IP address
     server_port = 1100
 
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client_socket:
