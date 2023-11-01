@@ -8,9 +8,19 @@ def main():
     def send_server_data(client_socket, message):
         client_socket.sendall(message.encode())
 
-    def recv_server_data(client_socket, buf_size=1024):
-        response = client_socket.recv(buf_size)
-        return response.decode()
+    def recv_server_data(client_socket, buffer_size=2048):
+        size = int(client_socket.recv(buffer_size).decode())
+        print(size)
+        send_server_data(client_socket, message="Ok")
+        # recv size as bytes and convert to number
+        response = []
+        response_len = 0
+        while response_len < size:
+            chunk = client_socket.recv(buffer_size)
+            response.append(chunk.decode())
+            response_len += len(chunk)
+            print(f"\nDatalen: {response_len}")
+        return ''.join(response)
 
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client_socket:
         client_socket.connect((server_ip, server_port))
@@ -22,7 +32,10 @@ def main():
                 print("Connection closed by server. Exiting.")
                 break
             print(server_response)
-            user_input = input()
+            user_input = ""
+            while user_input == "":
+                user_input = input().strip()
+            print(f"Input: {user_input}")
             send_server_data(client_socket, user_input)
             server_response = recv_server_data(client_socket)
 

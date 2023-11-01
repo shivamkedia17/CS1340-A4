@@ -1,4 +1,5 @@
 *
 !.gitignore
+!.venv/*
 !*.py
 !*.md
