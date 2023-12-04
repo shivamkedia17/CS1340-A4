@@ -10,7 +10,7 @@ def main():
 
     def recv_server_data(client_socket, buffer_size=2048):
         size = int(client_socket.recv(buffer_size).decode())
-        print(size)
+        # print(size)
         send_server_data(client_socket, message="Ok")
         # recv size as bytes and convert to number
         response = []
@@ -19,7 +19,7 @@ def main():
             chunk = client_socket.recv(buffer_size)
             response.append(chunk.decode())
             response_len += len(chunk)
-            print(f"\nDatalen: {response_len}")
+            # print(f"\nDatalen: {response_len}")
         return ''.join(response)
 
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client_socket:
@@ -34,8 +34,8 @@ def main():
             print(server_response)
             user_input = ""
             while user_input == "":
-                user_input = input().strip()
-            print(f"Input: {user_input}")
+                user_input = input("Input:   ").strip()
+            print(f"Entered: {user_input}")
             send_server_data(client_socket, user_input)
             server_response = recv_server_data(client_socket)
 
